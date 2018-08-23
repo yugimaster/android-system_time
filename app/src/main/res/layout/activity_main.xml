@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/datelocal_ll"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:layout_marginTop="10dp"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/date_text"
+                android:layout_width="400dp"
+                android:layout_height="40dp"
+                android:textSize="28sp"
+                android:gravity="center"
+                android:text="当前选择的时间"/>
+
+            <TextView
+                android:id="@+id/time_text"
+                android:layout_width="400dp"
+                android:layout_height="30dp"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:text="1990-01-01 00:00:00"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="25dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:textSize="35sp"
+                android:text="年"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:textSize="35sp"
+                android:text="月"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:textSize="35sp"
+                android:text="日"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:textSize="35sp"
+                android:text="时"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:textSize="35sp"
+                android:text="分"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:textSize="35sp"
+                android:text="秒"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <RelativeLayout
+                android:id="@+id/Year_rl"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="40dp"
+                android:focusable="true">
+
+                <TextView
+                    android:id="@+id/Year_text"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:textColor="@color/common_unfocus"
+                    android:textSize="30sp"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp" />
+
+                <ListView
+                    android:id="@+id/AreaList_Year"
+                    android:layout_width="150dp"
+                    android:layout_height="180dp"
+                    android:nextFocusLeft="@+id/btn_setting"
+                    android:nextFocusRight="@+id/Month_rl"
+                    android:layout_marginTop="20dp"
+                    android:listSelector="#00000000"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Month_rl"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:focusable="true">
+
+                <TextView
+                    android:id="@+id/Month_text"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:textColor="@color/common_unfocus"
+                    android:textSize="30sp"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"/>
+
+                <ListView
+                    android:id="@+id/AreaList_Month"
+                    android:layout_width="150dp"
+                    android:layout_height="180dp"
+                    android:nextFocusRight="@+id/Day_rl"
+                    android:nextFocusLeft="@+id/Year_rl"
+                    android:visibility="gone"
+                    android:layout_marginTop="20dp"
+                    android:listSelector="#00000000"
+                    android:scrollbars="none"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Day_rl"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:focusable="true">
+
+                <TextView
+                    android:id="@+id/Day_text"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:textColor="@color/common_unfocus"
+                    android:textSize="30sp"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"/>
+
+                <ListView
+                    android:id="@+id/AreaList_Day"
+                    android:layout_width="150dp"
+                    android:layout_height="180dp"
+                    android:visibility="gone"
+                    android:nextFocusLeft="@+id/Month_rl"
+                    android:layout_marginTop="20dp"
+                    android:listSelector="#00000000"
+                    android:scrollbars="none"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Hour_rl"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:focusable="true">
+
+                <TextView
+                    android:id="@+id/Hour_text"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:textColor="@color/common_unfocus"
+                    android:textSize="30sp"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"/>
+
+                <ListView
+                    android:id="@+id/AreaList_Hour"
+                    android:layout_width="150dp"
+                    android:layout_height="180dp"
+                    android:visibility="gone"
+                    android:nextFocusLeft="@+id/Day_rl"
+                    android:nextFocusRight="@+id/Minute_rl"
+                    android:layout_marginTop="20dp"
+                    android:listSelector="#00000000"
+                    android:scrollbars="none"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Minute_rl"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:focusable="true">
+
+                <TextView
+                    android:id="@+id/Minute_text"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:textColor="@color/common_unfocus"
+                    android:textSize="30sp"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"/>
+
+                <ListView
+                    android:id="@+id/AreaList_Minute"
+                    android:layout_width="150dp"
+                    android:layout_height="180dp"
+                    android:visibility="gone"
+                    android:nextFocusLeft="@+id/Hour_rl"
+                    android:nextFocusRight="@+id/Second_rl"
+                    android:layout_marginTop="20dp"
+                    android:listSelector="#00000000"
+                    android:scrollbars="none"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Second_rl"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:focusable="true">
+
+                <TextView
+                    android:id="@+id/Second_text"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:textColor="@color/common_unfocus"
+                    android:textSize="30sp"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"/>
+
+                <ListView
+                    android:id="@+id/AreaList_Second"
+                    android:layout_width="150dp"
+                    android:layout_height="180dp"
+                    android:visibility="gone"
+                    android:nextFocusLeft="@+id/Minute_rl"
+                    android:nextFocusRight="@+id/btn_setting"
+                    android:layout_marginTop="20dp"
+                    android:listSelector="#00000000"
+                    android:scrollbars="none"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_setting"
+            android:layout_width="800dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:nextFocusUp="@+id/Year_rl"
+            android:text="设置系统时间"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
