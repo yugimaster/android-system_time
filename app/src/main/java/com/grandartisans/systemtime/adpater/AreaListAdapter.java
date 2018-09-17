@@ -4,6 +4,7 @@ import com.grandartisans.systemtime.R;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,13 +39,13 @@ public class AreaListAdapter extends BaseAdapter {
         TextView TitleTextView = viewCache.getTitleTextView();
         TitleTextView.setText(item);
         if (curPosition == position) {
-            TitleTextView.setTextSize(35);
-            TitleTextView.setTextColor(Color.parseColor("#6495ED"));
-            TitleTextView.setAlpha(1f);
+            TitleTextView.setTextSize(26);
+            if (parent.hasFocus())
+                TitleTextView.setSelected(true);
         } else {
-            TitleTextView.setTextSize(30);
-            TitleTextView.setTextColor(Color.parseColor("#828282"));
-            TitleTextView.setAlpha(1f);
+            TitleTextView.setTextSize(26);
+            if (parent.hasFocus())
+                TitleTextView.setSelected(false);
         }
 
         return convertView;

@@ -1,6 +1,8 @@
 package com.grandartisans.systemtime;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import com.grandartisans.systemtime.adpater.AreaListAdapter;
 
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private AreaListAdapter mSecondAdapter = null;
 
     private TextView Year_text, Month_text, Day_text, Hour_text, Minute_text, Second_text;
-    private TextView Time_text;
+    private TextView Date_text, Time_text;
 
     private static final int UPDATETIME = 1024;
     private final int DATA_SIZE = 30;
@@ -88,7 +91,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setAppFont();
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         mContext = this;
         initView();
@@ -128,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
         Hour_text = (TextView) findViewById(R.id.Hour_text);
         Minute_text = (TextView) findViewById(R.id.Minute_text);
         Second_text = (TextView) findViewById(R.id.Second_text);
+
+        Date_text = (TextView) findViewById(R.id.date_text);
         Time_text = (TextView) findViewById(R.id.time_text);
 
         h.sendEmptyMessage(UPDATETIME);
@@ -162,13 +169,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    Year_text.setVisibility(View.GONE);
-                    YearList.setVisibility(View.VISIBLE);
-                    Month_text.setText(lastMonth);
-                    Day_text.setText(lastDay);
-                    Hour_text.setText(lastHour);
-                    Minute_text.setText(lastMinute);
-                    Second_text.setText(lastSecond);
                     YearList.requestFocus();
                 }
             }
@@ -178,9 +178,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    Year_text.setText(lastYear);
-                    Year_text.setVisibility(View.VISIBLE);
-                    YearList.setVisibility(View.GONE);
                 }
             }
         });
@@ -189,8 +186,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    Month_text.setVisibility(View.GONE);
-                    MonthList.setVisibility(View.VISIBLE);
                     MonthList.requestFocus();
                 }
             }
@@ -200,9 +195,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    Month_text.setText(lastMonth);
-                    Month_text.setVisibility(View.VISIBLE);
-                    MonthList.setVisibility(View.GONE);
                 }
             }
         });
@@ -211,8 +203,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    Day_text.setVisibility(View.GONE);
-                    DayList.setVisibility(View.VISIBLE);
                     DayList.requestFocus();
                 }
             }
@@ -222,9 +212,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    Day_text.setText(lastDay);
-                    Day_text.setVisibility(View.VISIBLE);
-                    DayList.setVisibility(View.GONE);
                 }
             }
         });
@@ -233,8 +220,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    Hour_text.setVisibility(View.GONE);
-                    HourList.setVisibility(View.VISIBLE);
                     HourList.requestFocus();
                 }
             }
@@ -244,9 +229,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    Hour_text.setText(lastHour);
-                    Hour_text.setVisibility(View.VISIBLE);
-                    HourList.setVisibility(View.GONE);
                 }
             }
         });
@@ -255,8 +237,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    Minute_text.setVisibility(View.GONE);
-                    MinuteList.setVisibility(View.VISIBLE);
                     MinuteList.requestFocus();
                 }
             }
@@ -266,9 +246,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    Minute_text.setText(lastMinute);
-                    Minute_text.setVisibility(View.VISIBLE);
-                    MinuteList.setVisibility(View.GONE);
                 }
             }
         });
@@ -277,8 +254,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    Second_text.setVisibility(View.GONE);
-                    SecondList.setVisibility(View.VISIBLE);
                     SecondList.requestFocus();
                 }
             }
@@ -288,9 +263,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    Second_text.setText(lastSecond);
-                    Second_text.setVisibility(View.VISIBLE);
-                    SecondList.setVisibility(View.GONE);
                 }
             }
         });
@@ -420,12 +392,10 @@ public class MainActivity extends AppCompatActivity {
                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == KeyEvent.ACTION_UP) {
                     AreaList.smoothScrollToPositionFromTop(MonthAreaPos, 75, 100);
                     mAdapter.setPosition(MonthAreaPos);
-                    updateDayValue();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN && event.getAction() == KeyEvent.ACTION_UP) {
-                    AreaList.smoothScrollToPositionFromTop(MonthAreaPos, 75, 10);
+                    AreaList.smoothScrollToPositionFromTop(MonthAreaPos, 75, 100);
                     mAdapter.setPosition(MonthAreaPos);
-                    updateDayValue();
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && event.getAction() == KeyEvent.ACTION_DOWN) {
 
@@ -620,6 +590,19 @@ public class MainActivity extends AppCompatActivity {
                 lastHour + ":" + lastMinute + ":" + lastSecond;
         Time_text.setText(time);
         currentTime = time;
+    }
+
+    private void setAppFont() {
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/SourceHanSansCN-Light.otf");
+        try {
+            Field field = Typeface.class.getDeclaredField("MONOSPACE");
+            field.setAccessible(true);
+            field.set(null, typeface);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     private int getkey(int count, int num) {

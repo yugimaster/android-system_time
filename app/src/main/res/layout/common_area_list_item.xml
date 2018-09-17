@@ -7,8 +7,8 @@
     <TextView
         android:id="@+id/areaText"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:textColor="@color/common_color_grey"
+        android:layout_height="50dp"
+        android:textColor="@drawable/item_text_selector"
         android:textSize="20sp"
         android:gravity="center"
         />
