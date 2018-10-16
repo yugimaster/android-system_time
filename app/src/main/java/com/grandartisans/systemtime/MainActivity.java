@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView Date_text, Time_text;
 
     private static final int UPDATETIME = 1024;
-    private final int DATA_SIZE = 30;
+    private final int DATA_SIZE = 15;
 
     private String lastYear = "";
     private String lastMonth = "";
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private String lastSecond = "";
     private String currentTime = "";
 
-    private int YearAreaPos = Integer.MAX_VALUE / 2;
+    private int YearAreaPos = 0;
     private int MonthAreaPos = Integer.MAX_VALUE / 2;
     private int DayAreaPos = Integer.MAX_VALUE / 2;
     private int HourAreaPos = Integer.MAX_VALUE / 2;
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     private void initDateData() {
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
+        int year = getCurrentYear(calendar);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
     private void setYearValue(int year) {
         YeardataList.clear();
         for (int i = 0; i < DATA_SIZE; i++) {
-            YeardataList.add(Integer.toString(year - DATA_SIZE / 2 + i));
+            YeardataList.add(Integer.toString(year + i));
         }
         mYearAdapter = new AreaListAdapter(this, YeardataList);
         initYearList(YearList, mYearAdapter, YeardataList);
@@ -620,6 +620,19 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return 0;
+    }
+
+    /**
+     * Get current year
+     * if year is behind 2018 the value will be 2018.
+     * @param calendar
+     * @return
+     */
+    private int getCurrentYear(Calendar calendar) {
+        int year = calendar.get(Calendar.YEAR);
+        if (year < 2018)
+            year = 2018;
+        return year;
     }
 
     /**
